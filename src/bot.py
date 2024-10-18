@@ -22,9 +22,9 @@ class SWCodes(commands.Bot):
 
         # Slash commands
         print("[INFO] Cooking slash commands...")
-        for file in os.listdir("./src/commands/slashes"):
+        for file in os.listdir("./src/commands"):
             if file.endswith(".py"):
-                self.load_extension("commands.slashes." + file[:-3])
+                self.load_extension("commands." + file[:-3])
                 print(file[:-3] + " command is ready!")
 
         print("[INFO] Slash commands are cooked!")
