@@ -16,8 +16,7 @@ class UnregisterID(commands.Cog):
                 description="The Hive ID of the account",
                 required=True
             )
-        ],
-        guild_ids=[1266543874562588797]
+        ]
     )
     async def unregisterID(self, ctx, hiveid : str):
         text: str = ""
