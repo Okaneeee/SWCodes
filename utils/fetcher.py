@@ -37,9 +37,6 @@ def fetch(id: str, code: str):
         306 - invalid code (changed from (H306) - str)
         404 - URL not found (custom)
         503 - invalid HiveID
-
-    retMsg:
-        Separator = br
     """
     try:
         body = f"country=US&lang=en&server=europe&hiveid={id}&coupon={code}"
