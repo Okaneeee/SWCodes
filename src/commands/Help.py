@@ -14,7 +14,7 @@ class Help(commands.Cog):
     async def help(self, ctx):
         user = await self.bot.fetch_user(self.ownerID)
 
-        helpEmbed : discord.Embed = discord.Embed(title="Test", description="Shows the available commands", colour=discord.Colour.from_rgb(46, 169, 103))
+        helpEmbed: discord.Embed = discord.Embed(title="Test", description="Shows the available commands", colour=discord.Colour.from_rgb(46, 169, 103))
 
         helpEmbed.add_field(name="Show this menu", value="`/help`", inline = False)
         helpEmbed.add_field(name="Use a code on an account", value="`/usecode [hiveID] [code]`", inline = False)
