@@ -18,6 +18,10 @@ SW Codes is a discord bot to facilitate the use of codes on the mobile game Summ
 - [ ] Add a log system
 - [ ] See if there are more features/commands to add
 
+### Lastly
+- [ ] Test the bot
+- [ ] Host the bost on OCI
+
 [^1]: Add a disclaimer or something to tell the user agree to share their ID and have it stored in a file (private for everyone but the bot owner)
 [^2]: See if it won't cause trouble with the API/avoid banning accounts, maybe limit the number of registered IDs or only allow the command for the owner 
 [^3]: Add the list to the [`.gitignore`](./.gitignore) file for security reasons
