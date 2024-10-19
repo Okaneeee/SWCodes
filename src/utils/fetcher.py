@@ -33,6 +33,7 @@ def fetch(id: str, code: str):
 
     retCodes:
         100 - success
+        302 - invalid code (changed from (H302) - str)
         304 - already used (changed from (H304) - str)
         306 - invalid code (changed from (H306) - str)
         404 - URL not found (custom)
@@ -47,9 +48,9 @@ def fetch(id: str, code: str):
         if type(rJson["retCode"]) == str: # Avoid error if retCode is int
             rJson["retCode"] = rJson["retCode"].translate(str.maketrans({"(": "", ")": "", "H": ""}))
 
-        retCode = rJson["retCode"]
+        retCode = int(rJson["retCode"])
 
-        if retCode == 306:
+        if retCode == 302 or retCode == 306:
             return retCode, "Invalid code, it might be expired, invalid or usage limit reached"
         elif retCode == 304:
             return retCode, "already used the code."
