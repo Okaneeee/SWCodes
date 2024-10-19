@@ -28,7 +28,7 @@ def fetch(id: str, code: str):
         code (str): Coupon code
 
     Returns:
-        Tuple[int, dict]: Status code and response json \n
+        Tuple[int, str]: Status code and response \n
         (int, {"retCode": int|str, "retMsg": str})
 
     retCodes:
@@ -47,12 +47,20 @@ def fetch(id: str, code: str):
         if type(rJson["retCode"]) == str: # Avoid error if retCode is int
             rJson["retCode"] = rJson["retCode"].translate(str.maketrans({"(": "", ")": "", "H": ""}))
 
-        # Getting the first line of retMsg
-        rJson["retMsg"] = str(rJson["retMsg"]).split("<br/>")[0]
+        retCode = rJson["retCode"]
 
-        return response.status_code, rJson
+        if retCode == 306:
+            return retCode, "Invalid code, it might be expired, invalid or usage limit reached"
+        elif retCode == 304:
+            return retCode, "already used the code."
+        elif retCode == 503:
+            return retCode, "has registered an invalid Hive ID."
+        elif retCode == 100:
+            return retCode, "successfully used the code."
+        else:
+            return 500, "Unknown error, contact the developer"
     except Exception as e:
-        return 404, {"retCode": 404, "retMsg": "URL not found"}
+        return 404, "URL not found, contact the developer"
 
 
 DB = "./db/ids.json"
@@ -78,24 +86,23 @@ def multiFetch(code: str) -> str|tuple:
     noErrors: int = 0
     for id in ids:
         rCode, resp = fetch(id, code)
-        if rCode == 404 or resp["retCode"] == 404:
-            return "URL not found, contact the developer"
-        if rCode != 200:
-            return "Unknown error, contact the developer"
-        if resp["retCode"] == 306:
-            return "Invalid code, it might be expired, invalid or usage limit reached"
+        if rCode == 404:
+            return resp
+        elif rCode == 500:
+            return resp
+        elif rCode == 306:
+            return resp
+        elif rCode == 304:
+            errors.append(f"<@{db[id]}> {resp}")
+        
+        elif rCode == 503:
+            errors.append(f"<@{db[id]}> {resp}")
+
+        elif rCode == 100:
+            noErrors += 1
+
         else:
-            if resp["retCode"] == 304:
-                errors.append(f"<@{db[id]}> already used the code.")
-            
-            elif resp["retCode"] == 503:
-                errors.append(f"<@{db[id]}> has registered an invalid Hive ID.")
-
-            elif resp["retCode"] == 100:
-                noErrors += 1
-
-            else:
-                errors.append(f"<@{db[id]}> has encountered an unknown error.")
+            errors.append(f"<@{db[id]}> has encountered an unknown error.")
 
     response = f"{noErrors} users successfully used the code." if noErrors > 1 else f"{noErrors} user successfully used the code." if noErrors == 1 else "No users successfully used the code."
     if errors:
