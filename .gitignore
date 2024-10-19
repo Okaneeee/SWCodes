@@ -1,7 +1,7 @@
 # Private files
 token
-/json/
-/JSON/
+/db/
+/DB/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
