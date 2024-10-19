@@ -1,4 +1,5 @@
 import requests
+import json
 
 URL = "https://event.withhive.com/ci/smon/evt_coupon/useCoupon"
 
@@ -32,10 +33,10 @@ def fetch(id: str, code: str):
 
     retCodes:
         100 - success
-        (H304) - already used (str)
-        (H306) - invalid code (str)
+        304 - already used (changed from (H304) - str)
+        306 - invalid code (changed from (H306) - str)
         404 - URL not found (custom)
-        503 - invalid id
+        503 - invalid HiveID
 
     retMsg:
         Separator = br
@@ -43,6 +44,15 @@ def fetch(id: str, code: str):
     try:
         body = f"country=US&lang=en&server=europe&hiveid={id}&coupon={code}"
         response = requests.post(URL, headers=HEADERS, data=body)
-        return response.status_code, response.json()
+        rJson = response.json()
+        
+        # Removing (H) from retCode
+        if type(rJson["retCode"]) == str: # Avoid error if retCode is int
+            rJson["retCode"] = rJson["retCode"].translate(str.maketrans({"(": "", ")": "", "H": ""}))
+
+        # Getting the first line of retMsg
+        rJson["retMsg"] = str(rJson["retMsg"]).split("<br/>")[0]
+
+        return response.status_code, rJson
     except Exception as e:
         return 404, {"retCode": 404, "retMsg": "URL not found"}
