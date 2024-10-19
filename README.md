@@ -11,13 +11,12 @@ SW Codes is a discord bot to facilitate the use of codes on the mobile game Summ
 - [ ] Add a command to use a code on all registered IDs (/trigger 『code』)[^2]
 
 ### Features
-- [ ] A JSON file to store the list of registered IDs (a db is overkill)[^3] [^4]
+- [x] A JSON file to store the list of registered IDs (a db is overkill)[^3] [^4]
 
 ### Extra
 - [ ] Change `token` to a `.env` file with token & ownerid
 - [ ] Make a proper README
 - [ ] Add a log system
-- [ ] See if there are more features/commands to add
 
 ### Lastly
 - [ ] Test the bot
