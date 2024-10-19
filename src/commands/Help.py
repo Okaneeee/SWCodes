@@ -18,7 +18,7 @@ class Help(commands.Cog):
         helpEmbed: discord.Embed = discord.Embed(
             title="Test",
             description="Shows the available commands",
-            colour=discord.Colour.from_rgb(46, 169, 103),
+            colour=discord.Colour.from_rgb(57, 186, 128),
             timestamp=datetime.datetime.now()
         )
 
@@ -29,7 +29,7 @@ class Help(commands.Cog):
         helpEmbed.add_field(name="Use a code on all registered IDs", value="`/trigger [code]` \n*Only available to the developer*", inline = False)
 
         helpEmbed.set_footer(
-            text=f"By {user.name}",
+            text = f"By {user.name}",
             icon_url = user.avatar
         )
 
