@@ -7,7 +7,7 @@ def __createDB():
     with open(DB, "w") as f:
         json.dump({}, f)
 
-def addID(HiveID: str, DiscordID: int) -> str:
+def addID(HiveID: str, DiscordID: int) -> int:
     """Add a new ID to the database
 
     Args:
@@ -15,7 +15,11 @@ def addID(HiveID: str, DiscordID: int) -> str:
         DiscordID (int): Discord ID
 
     Returns:
-        str: Success message
+        int: Success or error code
+
+    Codes:
+        200: ID successfully added
+        409: ID already exists
     """
     try:
         with open(DB, "r") as f:
@@ -25,34 +29,41 @@ def addID(HiveID: str, DiscordID: int) -> str:
         with open(DB, "r") as f:
             db: dict = json.load(f)
     
+    if HiveID in db:
+        return 409
     db[HiveID] = DiscordID
 
     with open(DB, "w") as f:
         json.dump(db, f, indent=4)
 
-    return "ID successfully added"
+    return 200
 
-def removeID(HiveID: str) -> str:
+def removeID(HiveID: str) -> int:
     """Remove an ID from the database
 
     Args:
         HiveID (str): Hive ID
 
     Returns:
-        str: Success or error message
+        int: Success or error code
+
+    Codes:
+        200: ID successfully removed
+        404: ID not found
+        500: No registered IDs
     """
     try:
         with open(DB, "r") as f:
             db: dict = json.load(f)
     except FileNotFoundError:
-        return "Error: no registered IDs"
+        return 500
     
     try:
         del db[HiveID]
     except KeyError:
-        return "Error: ID not found"
+        return 404
     
     with open(DB, "w") as f:
         json.dump(db, f, indent=4)
 
-    return "ID successfully removed"
+    return 200
