@@ -4,7 +4,7 @@ SW Codes is a discord bot to facilitate the use of codes on the mobile game Summ
 
 ## TODO:
 ### Commands
-- [ ] Add a command to show the list of all commands and descriptions (/help)
+- [x] Add a command to show the list of all commands and descriptions (/help)
 - [ ] Add a command to use a code on an account (/usecode 『hiveid』 『code』)[^5]
 - [ ] Add a command to register an ID to the list of IDs (/registerID 『hiveid』)[^1] [^5]
 - [ ] Add a command to unregister an ID from the list of IDs (/unregisterID 『hiveid』)[^5]
