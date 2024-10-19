@@ -56,3 +56,55 @@ def fetch(id: str, code: str):
         return response.status_code, rJson
     except Exception as e:
         return 404, {"retCode": 404, "retMsg": "URL not found"}
+
+
+DB = "./db/ids.json"
+
+def multiFetch(code: str) -> str|tuple:
+    """Make a request to use a coupon code for multiple users
+
+    Args:
+        code (str): Coupon code
+
+    Returns:
+        dict: {id: (status code, response json)}
+    """
+    try:
+        with open(DB, "r") as f: 
+            db: dict = json.load(f)
+    except FileNotFoundError:
+        return "No registered IDs"
+    
+    ids = list(db.keys())
+
+    errors = []
+    noErrors: int = 0
+    for id in ids:
+        rCode, resp = fetch(id, code)
+        if rCode == 404 or resp["retCode"] == 404:
+            return "URL not found, contact the developer"
+        if rCode != 200:
+            return "Unknown error, contact the developer"
+        if resp["retCode"] == 306:
+            return "Invalid code, it might be expired, invalid or usage limit reached"
+        else:
+            if resp["retCode"] == 304:
+                errors.append(f"<@{db[id]}> already used the code.")
+            
+            elif resp["retCode"] == 503:
+                errors.append(f"<@{db[id]}> has registered an invalid Hive ID.")
+
+            elif resp["retCode"] == 100:
+                noErrors += 1
+
+            else:
+                errors.append(f"<@{db[id]}> has encountered an unknown error.")
+
+    response = f"{noErrors} users successfully used the code." if noErrors > 1 else f"{noErrors} user successfully used the code." if noErrors == 1 else "No users successfully used the code."
+    if errors:
+        response += f"\n\n {len(errors)} users got an error:" if len(errors) > 1 else f"\n\n {len(errors)} user got an error:"
+        return response, errors
+    return response
+
+if __name__ == "__main__":
+    print(multiFetch("SW2022FEB21"))
