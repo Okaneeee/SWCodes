@@ -110,6 +110,3 @@ def multiFetch(code: str) -> str|tuple:
         response += f"\n\n {len(errors)} users got an error:" if len(errors) > 1 else f"\n\n {len(errors)} user got an error:"
         return response, errors
     return response
-
-if __name__ == "__main__":
-    print(multiFetch("SW2022FEB21"))
