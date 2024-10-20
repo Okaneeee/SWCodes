@@ -93,11 +93,11 @@ def multiFetch(code: str) -> tuple:
         if rCode in [302, 306, 404, 500]:
             return rCode, resp
         elif rCode in [304, 503]:
-            errors.append(f"<@{db[id]}> {resp}")
+            errors.append(f"{db[id]} {resp}")
         elif rCode == 100:
             noErrors += 1
         else:
-            errors.append(f"<@{db[id]}> has encountered an unknown error.")
+            errors.append(f"{db[id]} has encountered an unknown error.")
 
     response = noErrors
     if errors:
