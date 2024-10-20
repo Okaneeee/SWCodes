@@ -18,50 +18,59 @@ class Logger:
         self.log_path = f'{folder}/{file_name}'
 
         logging.root.handlers = []
-        logging.basicConfig(
-            format='%(levelname)s | %(asctime)s - %(message)s',
-            datefmt='%Y-%m-%d (%a) %H:%M:%S', level=logging.INFO,
-            handlers=[logging.StreamHandler(), logging.FileHandler(self.log_path)]
-        )
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
+
+        self.__config()
     
+    def __config(self):
+        self.formatter = logging.Formatter('%(levelname)s | %(asctime)s - %(message)s', datefmt='%Y-%m-%d (%a) %H:%M:%S')
+
+        stream_handler = logging.StreamHandler()
+        stream_handler.setFormatter(self.formatter)
+
+        file_handler = logging.FileHandler(self.log_path)
+        file_handler.setFormatter(self.formatter)
+
+        self.logger.handlers = []
+
+        self.logger.addHandler(stream_handler)
+        self.logger.addHandler(file_handler)
+
     def __debug(self, message: str):
         """Log a debug message
         """
-        logging.debug(message)
+        self.logger.debug(message)
 
     def __info(self, message: str):
         """Log an info message
         """
-        logging.info(message)
+        self.logger.info(message)
         print(f'{message}')
     
     def __warning(self, message: str):
         """Log a warning message
         """
-        logging.warning(message)
+        self.logger.warning(message)
 
     def __error(self, message: str):
         """Log an error message
         """
-        logging.error(message)
+        self.logger.error(message)
 
     def __critical(self, message: str):
         """Log a critical message
         """
-        logging.critical(message)
+        self.logger.critical(message)
 
     def __checkLogSize(self):
         """Check the size of the log file and remove it if it exceeds 100MB. Create a new log file after.
         """
         if os.path.getsize(self.log_path) > 100000000: # 100MB
             os.remove(self.log_path)
-        self.__info("Log file removed due to size limit")
-        # Reconfiguring the logger
-        logging.basicConfig(
-            format='%(levelname)s | %(asctime)s - %(message)s',
-            datefmt='%Y-%m-%d (%a) %H:%M:%S', level=logging.INFO,
-            handlers=[logging.StreamHandler(), logging.FileHandler(self.log_path)]
-        )
+            self.__info("Log file removed due to size limit")
+            # Reconfiguring the logger
+            self.__config()
 
     def makeLog(self, message: str, level: str):
         """Make a log message
