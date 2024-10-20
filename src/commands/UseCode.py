@@ -24,14 +24,14 @@ class UseCode(commands.Cog):
             )
         ]
     )
-    async def useCode(self, ctx, hiveID : str, code : str):
+    async def useCode(self, ctx, hiveid : str, code : str):
         text: str
-        rCode, resp = fetch(hiveID, code)
+        rCode, resp = fetch(hiveid, code)
         
         if rCode in [100, 304]:
-            text = f"The account with the ID `{hiveID}` {resp}"
+            text = f"The account with the ID `{hiveid}` {resp}"
         elif rCode == 503:
-            text = f"The hive ID `{hiveID}` is invalid."
+            text = f"The hive ID `{hiveid}` is invalid."
         else:
             text = resp
 
