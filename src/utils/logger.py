@@ -72,7 +72,7 @@ class Logger:
             # Reconfiguring the logger
             self.__config()
 
-    def makeLog(self, message: str, level: str):
+    def log(self, message: str, level: str):
         """Make a log message
 
         Args:
