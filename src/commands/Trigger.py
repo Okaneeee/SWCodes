@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from utils.fetcher import multiFetch
+from datetime import datetime
 
 class Trigger(commands.Cog):
     def __init__(self, bot : commands.Bot) -> None:
@@ -28,7 +29,8 @@ class Trigger(commands.Cog):
             resultEmbed: discord.Embed = discord.Embed(
                 title="Results",
                 description=f"Used the code `{code}` on all registered IDs",
-                colour=discord.Colour.from_rgb(57, 186, 128)
+                colour=discord.Colour.from_rgb(57, 186, 128),
+                timestamp=datetime.now()
             )
 
             resultEmbed.add_field(name="Success", value=f"for {resp} accounts", inline=False)
@@ -38,7 +40,10 @@ class Trigger(commands.Cog):
                     title, val = error.split(" ", 1)
                     resultEmbed.add_field(name=title, value=val, inline=False)
 
-            resultEmbed.set_footer(text="Contact the developer for more information")
+            resultEmbed.set_footer(
+                text="Invoked by " + ctx.author.name,
+                icon_url=ctx.author.avatar
+            )
 
             await ctx.respond(embed=resultEmbed, ephemeral=True, delete_after=7)
 
