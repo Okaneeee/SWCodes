@@ -10,7 +10,7 @@ class Main():
         load_dotenv()
         TOKEN = getenv('TOKEN')
         if TOKEN is None:
-            sys.exit("Please create a token file and place your token in it!")
+            sys.exit("Please provide a token in the .env file.")
         else:
             intent = discord.Intents.all()
             intent.members = True
