@@ -21,7 +21,7 @@ class SWCodes(commands.Bot):
         print("[INFO] Events are loaded!")
 
         # Slash commands
-        print("[INFO] Cooking slash commands...")
+        print("\n[INFO] Cooking slash commands...")
         for file in os.listdir("./src/commands"):
             if file.endswith(".py"):
                 self.load_extension("commands." + file[:-3])
