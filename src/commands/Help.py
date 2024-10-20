@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from os import getenv
-import datetime
+from datetime import datetime
 
 class Help(commands.Cog):
     def __init__(self, bot : commands.Bot) -> None:
@@ -19,7 +19,7 @@ class Help(commands.Cog):
             title="Test",
             description="Shows the available commands",
             colour=discord.Colour.from_rgb(57, 186, 128),
-            timestamp=datetime.datetime.now()
+            timestamp=datetime.now()
         )
 
         helpEmbed.add_field(name="Show this menu", value="`/help`", inline = False)
