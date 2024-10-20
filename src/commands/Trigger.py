@@ -38,7 +38,7 @@ class Trigger(commands.Cog):
                 timestamp=datetime.now()
             )
 
-            resultEmbed.add_field(name="Success", value=f"for {resp} accounts", inline=False)
+            resultEmbed.add_field(name="Success", value=f"for {resp} accounts", inline=False) if resp > 1 else resultEmbed.add_field(name="Success", value=f"for {resp} account", inline=False) 
 
             if errors:
                 for error in errors:
