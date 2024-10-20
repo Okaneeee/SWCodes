@@ -15,8 +15,8 @@ SW Codes is a discord bot to facilitate the use of codes on the mobile game Summ
 
 ### Extra
 - [x] Change `token` to a `.env` file with token & ownerid
+- [x] Add a log system
 - [ ] Make a proper README
-- [ ] Add a log system
 
 ### Lastly
 - [x] Test the bot
