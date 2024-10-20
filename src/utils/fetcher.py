@@ -62,7 +62,7 @@ def fetch(id: str, code: str):
         else:
             return 500, "Unknown error, contact the developer"
     except HTTPError as http_err:
-        return 404, "URL not found, contact the develope"
+        return 404, "URL not found, contact the developer"
     except Exception as e:
         return 500, "Unknown error, contact the developer"
 
