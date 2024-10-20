@@ -112,6 +112,8 @@ python src/main.py
 
 ## Long-Term Support (LTS)
 
+<img src="https://img.shields.io/github/last-commit/Okaneeee/SWCodes">
+
 ### As the developer 
 I will be maintaining this repo for a long time. I will be fixing eventual bugs and do the necessary changes in case of a new Discord API update, a new Python version or if the Summoners War API changes. <br>
 I will also be updating the dependencies with [Dependabot](https://github.com/dependabot). <br>
