@@ -25,11 +25,14 @@ class UnregisterID(commands.Cog):
         text: str = ""
         logText: str = f"UnregisterID command invoked by {ctx.author.name}:"
 
-        resp: int = removeID(hiveid)
+        resp: int = removeID(hiveid, ctx.author.id)
 
         if resp == 200:
             text = f"ID `{hiveid}` successfully removed"
             LOGGER.log(f"{logText} Hive ID successfully removed", "INFO")
+        elif resp == 401:
+            text = f"Unauthorized, you did not register the ID `{hiveid}`"
+            LOGGER.log(f"{logText} Unauthorized", "WARNING")
         elif resp == 404:
             text = f"ID `{hiveid}` not found"
             LOGGER.log(f"{logText} Hive ID not found", "INFO")

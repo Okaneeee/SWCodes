@@ -38,17 +38,19 @@ def addID(HiveID: str, DiscordID: int) -> int:
 
     return 200
 
-def removeID(HiveID: str) -> int:
+def removeID(HiveID: str, DiscordID: int) -> int:
     """Remove an ID from the database
 
     Args:
         HiveID (str): Hive ID
+        DiscordID (int): Discord ID
 
     Returns:
         int: Success or error code
 
     Codes:
         200: ID successfully removed
+        401: Unauthorized (Discord ID did not register the Hive ID)
         404: ID not found
         500: No registered IDs
     """
@@ -59,6 +61,8 @@ def removeID(HiveID: str) -> int:
         return 500
     
     try:
+        if db[HiveID] != DiscordID:
+            return 401
         del db[HiveID]
     except KeyError:
         return 404
