@@ -12,9 +12,7 @@ class Main():
         if TOKEN is None:
             sys.exit("Please provide a token in the .env file.")
         else:
-            intent = discord.Intents.all()
-            intent.members = True
-            intent.message_content = True
+            intent = discord.Intents.default()
 
             bot = SWCodes(intent)
             bot.run(TOKEN)
