@@ -20,6 +20,8 @@ class Logger:
         logging.root.handlers = []
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
+        self.logger.propagate = False  # Prevent propagation to the root logger
+
 
         self.__config()
     
@@ -46,7 +48,6 @@ class Logger:
         """Log an info message
         """
         self.logger.info(message)
-        print(f'{message}')
     
     def __warning(self, message: str):
         """Log a warning message
