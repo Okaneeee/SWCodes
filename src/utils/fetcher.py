@@ -1,4 +1,5 @@
 import requests
+from requests.exceptions import HTTPError
 import json
 
 URL = "https://event.withhive.com/ci/smon/evt_coupon/useCoupon"
@@ -60,8 +61,10 @@ def fetch(id: str, code: str):
             return retCode, "successfully used the code."
         else:
             return 500, "Unknown error, contact the developer"
+    except HTTPError as http_err:
+        return 4004, "URL not found, contact the develope"
     except Exception as e:
-        return 404, "URL not found, contact the developer"
+        return 500, "Unknown error, contact the developer"
 
 
 DB = "./db/ids.json"
