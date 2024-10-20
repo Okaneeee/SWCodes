@@ -8,7 +8,7 @@ SW Codes is a discord bot to facilitate the use of codes on the mobile game Summ
 - [x] Add a command to use a code on an account (/usecode 『hiveid』 『code』)[^5]
 - [x] Add a command to register an ID to the list of IDs (/registerid 『hiveid』)[^1] [^5]
 - [x] Add a command to unregister an ID from the list of IDs (/unregisterid 『hiveid』)[^5]
-- [ ] Add a command to use a code on all registered IDs (/trigger 『code』)[^2]
+- [x] Add a command to use a code on all registered IDs (/trigger 『code』)[^2]
 
 ### Features
 - [x] A JSON file to store the list of registered IDs (a real db is overkill)[^3] [^4]
@@ -19,7 +19,7 @@ SW Codes is a discord bot to facilitate the use of codes on the mobile game Summ
 - [ ] Add a log system
 
 ### Lastly
-- [ ] Test the bot
+- [x] Test the bot
 - [ ] Host the bost on OCI
 
 [^1]: Add a disclaimer or something to tell the user agree to share their ID and have it stored in a file (private for everyone but the bot owner)
