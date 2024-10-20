@@ -1,6 +1,8 @@
 # Private files
 /db/
 /DB/
+/[Ll]og[s]/
+*.log
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
