@@ -1,6 +1,9 @@
 import discord
 from discord.ext import commands
 from utils.dbManager import addID
+from utils.logger import Logger
+
+LOGGER = Logger()
 
 class disclaimerView(discord.ui.View):
     def __init__(self, bot : commands.Bot, hiveid: str) -> None:
@@ -24,6 +27,8 @@ class disclaimerView(discord.ui.View):
                 text = f"{self.bot.user.name} | Thank you for your trust and support!", # type: ignore
                 icon_url = self.bot.user.avatar # type: ignore
             )
+            LOGGER.log(f"User {interaction.user.name} ({interaction.user.id}) accepted the disclaimer", "INFO") # type: ignore
+            LOGGER.log(f"User {interaction.user.name} ({interaction.user.id}) registered his Hive ID", "INFO") # type: ignore
 
         else:
             answerEmbed: discord.Embed = discord.Embed(
@@ -36,6 +41,7 @@ class disclaimerView(discord.ui.View):
                 text = f"{self.bot.user.name} | Thank you for your trust and support!", # type: ignore
                 icon_url = self.bot.user.avatar # type: ignore
             )
+            LOGGER.log(f"User {interaction.user.name} ({interaction.user.id}) already registered his ID", "WARNING") # type: ignore
 
         await interaction.response.edit_message(embed=answerEmbed, delete_after=5, view=None)
         self.stop()
@@ -54,6 +60,7 @@ class disclaimerView(discord.ui.View):
             icon_url = self.bot.user.avatar # type: ignore
         )
 
+        LOGGER.log(f"User {interaction.user.name} ({interaction.user.id}) declined the disclaimer", "INFO") # type: ignore
         await interaction.response.edit_message(embed=answerEmbed, delete_after=5, view=None)
         self.stop()
 
@@ -87,6 +94,7 @@ class RegisterID(commands.Cog):
             icon_url=ctx.author.avatar
         )
 
+        LOGGER.log(f"RegisterID command invoked by {ctx.author.name}", "INFO")
         await ctx.respond(embed=disclaimerEmbed, view=disclaimerView(self.bot, hiveid), ephemeral=True)
 
 def setup(bot):

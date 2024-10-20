@@ -2,6 +2,9 @@ import discord
 from discord.ext import commands
 from os import getenv
 from datetime import datetime
+from utils.logger import Logger
+
+LOGGER = Logger()
 
 class Help(commands.Cog):
     def __init__(self, bot : commands.Bot) -> None:
@@ -33,6 +36,7 @@ class Help(commands.Cog):
             icon_url = user.avatar
         )
 
+        LOGGER.log(f"Help command invoked by {ctx.author.name}", "INFO")
         await ctx.respond(embed=helpEmbed)
 
 def setup(bot):

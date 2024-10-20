@@ -1,6 +1,9 @@
 import discord
 from discord.ext import commands
 from utils.dbManager import removeID
+from utils.logger import Logger
+
+LOGGER = Logger()
 
 class UnregisterID(commands.Cog):
     def __init__(self, bot : commands.Bot) -> None:
@@ -20,17 +23,22 @@ class UnregisterID(commands.Cog):
     )
     async def unregisterID(self, ctx, hiveid : str):
         text: str = ""
+        logText: str = f"UnregisterID command invoked by {ctx.author.name}:"
 
         resp: int = removeID(hiveid)
 
         if resp == 200:
             text = f"ID `{hiveid}` successfully removed"
+            LOGGER.log(f"{logText} Hive ID successfully removed", "INFO")
         elif resp == 404:
             text = f"ID `{hiveid}` not found"
+            LOGGER.log(f"{logText} Hive ID not found", "INFO")
         elif resp == 500:
             text = "No registered IDs"
+            LOGGER.log(f"{logText} {text}", "INFO")
         else:
-            text = "Unknown error, contact the developer"    
+            text = "Unknown error, contact the developer"   
+            LOGGER.log(f"{logText} {text}", "ERROR") 
 
         await ctx.respond(text, ephemeral=True, delete_after=7)
 

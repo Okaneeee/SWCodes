@@ -13,7 +13,7 @@ class Main():
         load_dotenv()
         TOKEN = getenv('TOKEN')
         if TOKEN is None:
-            LOGGER.makeLog("Undefined token", "CRITICAL")
+            LOGGER.log("Undefined token", "CRITICAL")
             sys.exit("Please provide a token in the .env file.")
         else:
             intent = discord.Intents.default()

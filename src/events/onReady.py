@@ -9,8 +9,8 @@ class onReadyEvent(commands.Cog):
     
     @commands.Cog.listener()
     async def on_ready(self):
-        LOGGER.makeLog("Bot is up!", "INFO")
-        LOGGER.makeLog(f'Logged in as {self.bot.user}', "INFO")
+        LOGGER.log("Bot is up!", "INFO")
+        LOGGER.log(f'Logged in as {self.bot.user}', "INFO")
 
 def setup(bot):
     bot.add_cog(onReadyEvent(bot))
