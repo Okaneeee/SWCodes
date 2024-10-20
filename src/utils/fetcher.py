@@ -62,14 +62,14 @@ def fetch(id: str, code: str):
         else:
             return 500, "Unknown error, contact the developer"
     except HTTPError as http_err:
-        return 4004, "URL not found, contact the develope"
+        return 404, "URL not found, contact the develope"
     except Exception as e:
         return 500, "Unknown error, contact the developer"
 
 
 DB = "./db/ids.json"
 
-def multiFetch(code: str) -> str|tuple:
+def multiFetch(code: str) -> tuple:
     """Make a request to use a coupon code for multiple users
 
     Args:
@@ -82,7 +82,7 @@ def multiFetch(code: str) -> str|tuple:
         with open(DB, "r") as f: 
             db: dict = json.load(f)
     except FileNotFoundError:
-        return "No registered IDs"
+        return 404, "No IDs found, please register at least one ID first."
     
     ids = list(db.keys())
 
@@ -90,26 +90,16 @@ def multiFetch(code: str) -> str|tuple:
     noErrors: int = 0
     for id in ids:
         rCode, resp = fetch(id, code)
-        if rCode == 404:
-            return resp
-        elif rCode == 500:
-            return resp
-        elif rCode == 306:
-            return resp
-        elif rCode == 304:
+        if rCode in [302, 306, 404, 500]:
+            return rCode, resp
+        elif rCode in [304, 503]:
             errors.append(f"<@{db[id]}> {resp}")
-        
-        elif rCode == 503:
-            errors.append(f"<@{db[id]}> {resp}")
-
         elif rCode == 100:
             noErrors += 1
-
         else:
             errors.append(f"<@{db[id]}> has encountered an unknown error.")
 
-    response = f"{noErrors} users successfully used the code." if noErrors > 1 else f"{noErrors} user successfully used the code." if noErrors == 1 else "No users successfully used the code."
+    response = noErrors
     if errors:
-        response += f"\n\n {len(errors)} users got an error:" if len(errors) > 1 else f"\n\n {len(errors)} user got an error:"
         return response, errors
-    return response
+    return response, None
