@@ -71,8 +71,7 @@ class RegisterID(commands.Cog):
                 description="The Hive ID of the account",
                 required=True
             )
-        ],
-        guild_ids=[1266543874562588797]
+        ]
     )
     async def registerID(self, ctx, hiveid : str):
         disclaimerEmbed: discord.Embed = discord.Embed(
