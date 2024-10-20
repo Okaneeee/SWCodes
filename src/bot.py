@@ -1,8 +1,10 @@
 import discord
 from discord.ext import commands
 import os
+from utils.logger import Logger
 
-print("[INFO] Starting bot...")
+LOGGER = Logger()
+LOGGER.makeLog("Starting bot...", "INFO")
 
 class SWCodes(commands.Bot):
     def __init__(self, intents, prefix = "!"):
@@ -12,19 +14,19 @@ class SWCodes(commands.Bot):
         self.activity = discord.Activity(type=discord.ActivityType.playing, name="Summoners War")
 
         # Events
-        print("[INFO] Loading events...")
+        LOGGER.makeLog("Loading events...", "INFO")
         for file in os.listdir("./src/events"):
             if file.endswith(".py"):
                 self.load_extension("events." + file[:-3])
                 print(file[:-3] + " event is UP !")
 
-        print("[INFO] Events are loaded!")
+        LOGGER.makeLog("Events are loaded", "INFO")
 
         # Slash commands
-        print("\n[INFO] Cooking slash commands...")
+        LOGGER.makeLog("Loading slash commands...", "INFO")
         for file in os.listdir("./src/commands"):
             if file.endswith(".py"):
                 self.load_extension("commands." + file[:-3])
                 print(file[:-3] + " command is ready!")
 
-        print("[INFO] Slash commands are cooked!")
+        LOGGER.makeLog("Slash commands are loaded", "INFO")

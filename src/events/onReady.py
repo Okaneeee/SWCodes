@@ -1,4 +1,7 @@
 from discord.ext import commands
+from utils.logger import Logger
+
+LOGGER = Logger()
 
 class onReadyEvent(commands.Cog):
     def __init__(self, bot : commands.Bot) -> None:
@@ -6,8 +9,8 @@ class onReadyEvent(commands.Cog):
     
     @commands.Cog.listener()
     async def on_ready(self):
-        print("\n[INFO] Bot is up!")
-        print(f'[INFO] Logged in as {self.bot.user}')
+        LOGGER.makeLog("Bot is up!", "INFO")
+        LOGGER.makeLog(f'Logged in as {self.bot.user}', "INFO")
 
 def setup(bot):
     bot.add_cog(onReadyEvent(bot))
