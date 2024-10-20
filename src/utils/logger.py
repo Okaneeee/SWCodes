@@ -68,6 +68,11 @@ class Logger:
         """Check the size of the log file and remove it if it exceeds 100MB. Create a new log file after.
         """
         if os.path.getsize(self.log_path) > 100000000: # 100MB
+            # Close and remove the file handler
+            for handler in self.logger.handlers:
+                if isinstance(handler, logging.FileHandler):
+                    handler.close()
+                    self.logger.removeHandler(handler)
             os.remove(self.log_path)
             self.__info("Log file removed due to size limit")
             # Reconfiguring the logger
