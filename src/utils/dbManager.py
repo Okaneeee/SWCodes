@@ -1,9 +1,22 @@
 import json
+import os, errno
 
 DB = "./db/ids.json"
 
+def mkdir_p(path):
+    try:
+        os.makedirs(path, exist_ok=True)  # Python>3.2
+    except TypeError:
+        try:
+            os.makedirs(path)
+        except OSError as exc: # Python >2.5
+            if exc.errno == errno.EEXIST and os.path.isdir(path):
+                pass
+            else: raise
+
 def __createDB():
     """Create a new database file"""
+    mkdir_p("./db")
     with open(DB, "w") as f:
         json.dump({}, f)
 
