@@ -19,7 +19,7 @@ class Help(commands.Cog):
         user = await self.bot.fetch_user(self.ownerID)
 
         helpEmbed: discord.Embed = discord.Embed(
-            title="Test",
+            title="Help",
             description="Shows the available commands",
             colour=discord.Colour.from_rgb(57, 186, 128),
             timestamp=datetime.now()
