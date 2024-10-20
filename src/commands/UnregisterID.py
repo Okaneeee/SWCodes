@@ -32,7 +32,7 @@ class UnregisterID(commands.Cog):
         else:
             text = "Unknown error, contact the developer"    
 
-        await ctx.respond(text, ephemeral=True)
+        await ctx.respond(text, ephemeral=True, delete_after=7)
 
 def setup(bot):
     bot.add_cog(UnregisterID(bot))
