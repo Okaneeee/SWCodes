@@ -1,14 +1,20 @@
 import discord
 from discord.ext import commands
-import os
+import os, sys
 from utils.logger import Logger
 
 LOGGER = Logger()
 LOGGER.log("Starting bot...", "INFO")
 
 class SWCodes(commands.Bot):
-    def __init__(self, intents, prefix = "!"):
-        commands.Bot.__init__(self, command_prefix=prefix, intents = intents)
+    def __init__(self, intents):
+        ownerid = os.getenv("OWNERID")
+
+        if ownerid is None:
+            LOGGER.log("Undefined owner ID", "CRITICAL")
+            sys.exit("Please provide an owner ID in the .env file.")
+
+        commands.Bot.__init__(self, intents = intents, owner_id = int(ownerid))
         
         # Set activity
         self.activity = discord.Activity(type=discord.ActivityType.playing, name="Summoners War")
