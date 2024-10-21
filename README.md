@@ -99,6 +99,8 @@ python src/main.py
 ```
 
 ### Updating
+You'll need first to stop the bot by pressing `CTRL + C` in the terminal where the bot is running. <br>
+
 If you cloned the repo when you did the installation, you can update the repo by running the following command:
 
 ```bash
