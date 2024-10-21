@@ -13,6 +13,7 @@
   - [Getting Started](#getting-started)
     - [Installation](#installation)
     - [Quick Start](#quick-start)
+    - [Updating](#updating)
   - [Commands](#commands)
   - [Long-Term Support (LTS)](#long-term-support-lts)
     - [As the developer](#as-the-developer)
@@ -48,7 +49,7 @@
   - Extract the zip file to the directory where you want to clone the repo. Or in Linux:
     ```bash
     sudo apt-get install unzip
-    unzip SWCodes-main.zip
+    sudo unzip SWCodes-main.zip -d SWCodes
     ```
   - Open a terminal in the folder where you extracted the zip file and run the following command:
     ```bash
@@ -94,6 +95,27 @@ After, you'll need to [add your bot to your server](https://discord.com/develope
 Finally, you can run the bot by running the following command:
 
 ```bash
+python src/main.py
+```
+
+### Updating
+If you cloned the repo when you did the installation, you can update the repo by running the following command:
+
+```bash
+git pull
+```
+
+If you downloaded the repo as a zip file, you can download the new version by following the same installation steps you did before. <br>
+After, unzip the file using the following command in the same directory as the zip file:
+
+```bash
+sudo unzip SWCodes-main.zip -d SWCodes
+```
+and type `A` to replace all the files. <br>
+Finally, you can run the bot again by doing:
+
+```bash
+cd SWCodes
 python src/main.py
 ```
 
