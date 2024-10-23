@@ -50,7 +50,10 @@ class Trigger(commands.Cog):
                 icon_url=ctx.author.avatar
             )
 
-            LOGGER.log(f"Trigger command used: success for {resp} / error for {len(errors)}", "INFO")
+            if(errors):
+                LOGGER.log(f"Trigger command used: success for {resp} / error for {len(errors)}", "INFO")
+            else:
+                LOGGER.log(f"Trigger command used: success for {resp} / no errors encountered", "INFO")
 
             await ctx.respond(embed=resultEmbed, ephemeral=True, delete_after=7)
 
