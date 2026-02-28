@@ -148,6 +148,7 @@ I will also be updating the dependencies with [Dependabot](https://github.com/de
 | Python 3.10 | ✔ | [![Python 3.10](https://github.com/Okaneeee/SWCodes/actions/workflows/python310.yml/badge.svg)](https://github.com/Okaneeee/SWCodes/actions/workflows/python310.yml) |
 | Python 3.11 | ✔ | [![Python 3.11](https://github.com/Okaneeee/SWCodes/actions/workflows/python311.yml/badge.svg)](https://github.com/Okaneeee/SWCodes/actions/workflows/python311.yml) |
 | Python 3.12 | ✔ | [![Python 3.12](https://github.com/Okaneeee/SWCodes/actions/workflows/python312.yml/badge.svg)](https://github.com/Okaneeee/SWCodes/actions/workflows/python312.yml) |
+| Python 3.13 | ✔ | [![Python 3.13](https://github.com/Okaneeee/SWCodes/actions/workflows/python313.yml/badge.svg)](https://github.com/Okaneeee/SWCodes/actions/workflows/python313.yml) |
 
 ### Code Quality & Security
 | Actions             | Done | Status |
