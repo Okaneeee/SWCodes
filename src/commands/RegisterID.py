@@ -81,6 +81,8 @@ class RegisterID(commands.Cog):
         ]
     )
     async def registerID(self, ctx, hiveid : str):
+        await ctx.defer(ephemeral=True)
+
         disclaimerEmbed: discord.Embed = discord.Embed(
             title="⚠️ Disclaimer ⚠️",
             description="By clicking on the button below, you agree to share your Hive ID with the bot. \n\
