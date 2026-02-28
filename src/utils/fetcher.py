@@ -1,6 +1,9 @@
 import requests
 from requests.exceptions import HTTPError
 import json
+from logger import Logger
+
+LOGGER = Logger()
 
 URL = "https://event.withhive.com/ci/smon/evt_coupon/useCoupon"
 
@@ -36,6 +39,7 @@ def fetch(id: str, code: str):
         100 - success
         302 - invalid code (changed from (H302) - str)
         304 - already used (changed from (H304) - str)
+        305 - invalid code
         306 - invalid code (changed from (H306) - str)
         404 - URL not found (custom)
         503 - invalid HiveID
@@ -55,15 +59,20 @@ def fetch(id: str, code: str):
             return retCode, "Invalid code, it might be expired, invalid or usage limit reached"
         elif retCode == 304:
             return retCode, "already used the code."
+        elif retCode == 305:
+            return retCode, "Invalid code, please check again."
         elif retCode == 503:
             return retCode, "has registered an invalid Hive ID."
         elif retCode == 100:
             return retCode, "successfully used the code."
         else:
+            LOGGER.log(f"Unknown retCode: {retCode} with message: {rJson['retMsg']}", "ERROR")
             return 500, "Unknown error, contact the developer"
     except HTTPError as http_err:
+        LOGGER.log(f"HTTP error occurred: {http_err}", "ERROR")
         return 404, "URL not found, contact the developer"
     except Exception as e:
+        LOGGER.log(f"An error occurred: {e}", "ERROR")
         return 500, "Unknown error, contact the developer"
 
 
@@ -90,7 +99,7 @@ def multiFetch(code: str) -> tuple:
     noErrors: int = 0
     for id in ids:
         rCode, resp = fetch(id, code)
-        if rCode in [302, 306, 404, 500]:
+        if rCode in [302, 305, 306, 404, 500]:
             return rCode, resp
         elif rCode in [304, 503]:
             errors.append(f"{db[id]} {resp}")
