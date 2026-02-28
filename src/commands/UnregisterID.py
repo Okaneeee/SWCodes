@@ -22,6 +22,8 @@ class UnregisterID(commands.Cog):
         ]
     )
     async def unregisterID(self, ctx, hiveid : str):
+        await ctx.defer(ephemeral=True)
+
         text: str = ""
         logText: str = f"UnregisterID command invoked by {ctx.author.name}:"
 

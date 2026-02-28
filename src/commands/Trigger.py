@@ -24,6 +24,8 @@ class Trigger(commands.Cog):
     )
     @commands.is_owner()
     async def trigger(self, ctx, code : str):
+        await ctx.defer(ephemeral=True)
+
         LOGGER.log(f"Invoked command trigger by {ctx.author.name} with code {code}", "INFO")
         resp, errors = multiFetch(code)
 

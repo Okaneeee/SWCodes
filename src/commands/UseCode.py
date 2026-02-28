@@ -28,6 +28,8 @@ class UseCode(commands.Cog):
         ]
     )
     async def useCode(self, ctx, hiveid : str, code : str):
+        await ctx.defer(ephemeral=True)
+
         LOGGER.log(f"Usecode command invoked by {ctx.author.name} with Hive ID and code: {code}", "INFO")
         text: str
         rCode, resp = fetch(hiveid, code)

@@ -16,6 +16,8 @@ class Help(commands.Cog):
         description="Shows the available commands"
     )
     async def help(self, ctx):
+        await ctx.defer()
+
         user = await self.bot.fetch_user(self.ownerID)
 
         helpEmbed: discord.Embed = discord.Embed(
