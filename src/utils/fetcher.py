@@ -1,7 +1,7 @@
 import requests
 from requests.exceptions import HTTPError
 import json
-from logger import Logger
+from utils.logger import Logger
 
 LOGGER = Logger()
 
