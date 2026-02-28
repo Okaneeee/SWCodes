@@ -168,4 +168,4 @@ I will also be updating the dependencies with [Dependabot](https://github.com/de
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details. <br>
 This include all contributions to the project, even from the community.
 
-Copyright © 2024 Okaneeee | Anatole
+Copyright © 2024-2026 Okaneeee | Anatole
